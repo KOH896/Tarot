@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日指引 - 塔羅占卜之旅</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>今日指引</h1>
+            <p>今日的塔羅牌將為您帶來智慧與指引</p>
+            <a href="index.html" class="back-button">返回首頁</a>
+        </header>
+        
+        <main class="daily-guide">
+            <div class="card-container">
+                <div class="card" id="daily-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="images/card-back.jpg" alt="塔羅牌背面">
+                        </div>
+                        <div class="card-back">
+                            <!-- 牌面將由JavaScript動態生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-meaning" id="card-meaning">
+                <h2 id="card-title">點擊卡片獲取今日指引</h2>
+                <p id="card-description"></p>
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2025塔羅占卜之旅 - 探索內在的智慧</p>
+        </footer>
+    </div>
+    
+    <!-- 將音樂播放器移到這裡，body標籤內的末尾 -->
+    <div class="music-player">
+        <audio id="background-music" loop>
+            <source src="audio/background-music.mp3" type="audio/mpeg">
+            您的瀏覽器不支持音頻元素。
+        </audio>
+        <button id="music-toggle" class="music-btn">
+            <i class="music-icon">🎵</i>
+        </button>
+    </div>
+    
+    <script src="js/tarot-data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="scripts.js"></script> <!-- 確保引入scripts.js -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 為今日指引頁面添加點擊卡片事件
+            const dailyCard = document.getElementById('daily-card');
+            dailyCard.addEventListener('click', function() {
+                drawDailyCard();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,480 @@
+/* 基本樣式設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #f1f1f1;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/stars.png');
+    opacity: 0.3;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px 0;
+    position: relative;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #e2c6ff;
+    text-shadow: 0 0 10px rgba(226, 198, 255, 0.5);
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #b8c6db;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(226, 198, 255, 0.2);
+    color: #e2c6ff;
+    border: 1px solid #e2c6ff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: rgba(226, 198, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    color: #b8c6db;
+    font-size: 0.9rem;
+}
+
+/* 首頁菜單樣式 */
+.menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+.card-button {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(226, 198, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-button:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(226, 198, 255, 0.3);
+    border-color: rgba(226, 198, 255, 0.5);
+}
+
+.card-button .icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #e2c6ff;
+}
+
+.card-button h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #e2c6ff;
+}
+
+.card-button p {
+    color: #b8c6db;
+    font-size: 0.9rem;
+}
+
+/* 塔羅牌樣式 */
+.card-container {
+    perspective: 1000px;
+    margin: 20px 0;
+}
+
+.card {
+    width: 240px; /* 原来是220px，增加了20px */
+    height: 420px; /* 原来是380px，增加了40px */
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    cursor: pointer;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-front img, .card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+.card-meaning {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(226, 198, 255, 0.2);
+}
+
+.card-meaning h2, .card-meaning h4 {
+    color: #e2c6ff;
+    margin-bottom: 15px;
+}
+
+.card-meaning p {
+    color: #b8c6db;
+    line-height: 1.8;
+}
+
+/* 抽牌按鈕樣式 */
+.question-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.draw-button {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);
+}
+
+.draw-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(155, 89, 182, 0.6);
+}
+
+.draw-button:active {
+    transform: translateY(1px);
+}
+
+/* 三牌占卜樣式 */
+.cards-spread {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.time-card {
+    text-align: center;
+}
+
+.time-card h3 {
+    margin-bottom: 15px;
+    color: #e2c6ff;
+}
+
+/* 三牌占卜樣式 */
+.time-card .card {
+    width: 200px; /* 原来是180px，增加了20px */
+    height: 350px; /* 原来是310px，增加了40px */
+}
+
+.time-card .card-meaning {
+    width: 250px;
+    margin-top: 20px;
+    padding: 15px;
+}
+
+/* 真人線上占卜頁面樣式 */
+.consultation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.consultation-image {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.consultation-image img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.consultation-info {
+    flex: 1;
+    min-width: 300px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    border: 1px solid rgba(226, 198, 255, 0.2);
+}
+
+.consultation-info h2 {
+    color: #e2c6ff;
+    margin-bottom: 20px;
+}
+
+.consultation-info p {
+    margin-bottom: 15px;
+    color: #b8c6db;
+}
+
+.line-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: #06C755;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.line-button img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.line-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(6, 199, 85, 0.4);
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .menu {
+        grid-template-columns: 1fr;
+    }
+    
+    .cards-spread {
+        flex-direction: column;
+    }
+    
+    .consultation {
+        flex-direction: column;
+    }
+    
+    .card-button {
+        padding: 20px 15px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .back-button {
+        top: 10px;
+        left: 10px;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Instagram 二维码样式 */
+.instagram-qrcode {
+    text-align: center;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(60, 20, 100, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(230, 194, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.instagram-qrcode:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(230, 194, 255, 0.5);
+}
+
+.instagram-qrcode h3 {
+    color: #e6c2ff;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.social-handle {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #e6c2ff;
+    font-weight: bold;
+}
+
+.qrcode-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.qrcode-item {
+    background: rgba(40, 10, 80, 0.4);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qrcode-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(230, 194, 255, 0.3);
+}
+
+.qrcode-item h3 {
+    color: #e6c2ff;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.qrcode-image {
+    max-width: 200px;
+    border-radius: 5px;
+    border: 2px solid rgba(230, 194, 255, 0.3);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #e6c2ff;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid rgba(230, 194, 255, 0.3);
+    background: rgba(40, 10, 80, 0.6);
+    color: #fff;
+    font-family: inherit;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.email-button {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: rgba(182, 140, 255, 0.2);
+    color: #e6c2ff;
+    border: 1px solid rgba(230, 194, 255, 0.3);
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin: 1rem 0;
+}
+
+.email-button:hover {
+    background: rgba(182, 140, 255, 0.4);
+    box-shadow: 0 0 15px rgba(230, 194, 255, 0.5);
+}
+
+.contact-info {
+    margin-top: 1rem;
+    color: #b68cff;
+    text-align: center;
+}
+
+.contact-info a {
+    color: #e6c2ff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 5px rgba(230, 194, 255, 0.5);
+}

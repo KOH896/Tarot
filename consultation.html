@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真人線上占卜 - 塔羅占卜之旅</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 添加月亮元素 -->
+    <div class="moon"></div>
+    <!-- 保留星星背景 -->
+    <div class="star-small"></div>
+    <div class="star-medium"></div>
+    <div class="star-large"></div>
+    
+    <div class="container">
+        <header>
+            <h1>真人線上占卜</h1>
+            <p>專業塔羅師為您提供個人化解讀</p>
+            <a href="index.html" class="back-button">返回首頁</a>
+        </header>
+        
+        <main class="consultation">
+            <div class="consultation-image">
+               
+            </div>
+            
+            <div class="consultation-info">
+                <h2>獲取塔羅師的個人化解讀</h2>
+                <p>我們的塔羅師可以為您提供更個人化的塔羅牌解讀。無論您面臨什麼問題或困惑，我們都能為您提供指引。</p>
+                <p>請掃描下方二維碼，立即與塔羅師聯繫：</p>
+                
+                <div class="qrcode-container">
+                    <div class="qrcode-item instagram-qrcode">
+                        <h3>Instagram 關注我們</h3>
+                        <img src="images/instagram-qrcode.png" alt="Instagram二維碼" class="qrcode-image">
+                        <p class="social-handle">@moon_wm.05</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2025 塔羅占卜之旅 - 探索內在的智慧</p>
+        </footer>
+    </div>
+    
+    <!-- 將音樂播放器移到這裡，body標籤內的末尾 -->
+    <div class="music-player">
+        <audio id="background-music" loop>
+            <source src="audio/background-music.mp3" type="audio/mpeg">
+            您的瀏覽器不支持音頻元素。
+        </audio>
+        <button id="music-toggle" class="music-btn">
+            <i class="music-icon">🎵</i>
+        </button>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="scripts.js"></script> <!-- 確保引入scripts.js -->
+</body>
+</html>

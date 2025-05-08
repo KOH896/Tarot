@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淨化冥想 - 神秘塔羅</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 淨化冥想頁面專用樣式 */
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            overflow: hidden;
+        }
+        
+        .meditation-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+        }
+        
+        /* 水晶球容器，包含球體和底座 */
+        .crystal-ball-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        /* 水晶球外層 */
+        .crystal-ball {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4));
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+            animation: rotate 20s linear infinite, glow 5s ease-in-out infinite;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        /* 水晶球內部流體效果 */
+        .crystal-fluid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(45deg, 
+                rgba(100, 200, 255, 0.2), 
+                rgba(150, 100, 255, 0.3), 
+                rgba(200, 100, 200, 0.2), 
+                rgba(100, 150, 255, 0.3));
+            filter: blur(8px);
+            animation: fluid-rotate 15s linear infinite;
+            transform-origin: center;
+            z-index: 1;
+        }
+        
+        /* 水晶球內部漩渦效果 */
+        .crystal-vortex {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            transform: translate(-50%, -50%);
+            background: conic-gradient(
+                rgba(255, 255, 255, 0.1),
+                rgba(100, 200, 255, 0.2),
+                rgba(150, 100, 255, 0.3),
+                rgba(200, 100, 200, 0.2),
+                rgba(100, 150, 255, 0.3),
+                rgba(255, 255, 255, 0.1)
+            );
+            border-radius: 50%;
+            filter: blur(5px);
+            animation: vortex-rotate 10s linear infinite;
+            z-index: 2;
+            opacity: 0.7;
+        }
+        
+        /* 水晶球內部光點 */
+        .crystal-sparkles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+        }
+        
+        .sparkle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: sparkle-fade 3s ease-in-out infinite;
+        }
+        
+        /* 水晶球底座 */
+        .crystal-base {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 50px;
+            background: linear-gradient(to bottom, #4a4a6d, #2c2c3e);
+            border-radius: 50% 50% 10px 10px / 20px 20px 5px 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        
+        /* 底座裝飾環 */
+        .base-ring {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 15px;
+            background: linear-gradient(to bottom, #c0c0c0, #8a8a9b);
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+        
+        .light-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        /* 水晶球旋轉動畫 */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 水晶球內部流體旋轉動畫 */
+        @keyframes fluid-rotate {
+            0% { transform: rotate(0deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(1.5); }
+            100% { transform: rotate(360deg) scale(1.2); }
+        }
+        
+        /* 水晶球內部漩渦旋轉動畫 */
+        @keyframes vortex-rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(-360deg); }
+        }
+        
+        /* 水晶球內部光點閃爍動畫 */
+        @keyframes sparkle-fade {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.6); }
+            50% { box-shadow: 0 0 50px rgba(255, 255, 255, 0.8); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            25% { transform: translateY(-20px) translateX(10px); opacity: 0.8; }
+            50% { transform: translateY(0) translateX(20px); opacity: 0.5; }
+            75% { transform: translateY(20px) translateX(10px); opacity: 0.7; }
+        }
+        
+        .meditation-title {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .meditation-text {
+            color: white;
+            text-align: center;
+            max-width: 600px;
+            margin: 2rem auto;
+            line-height: 1.6;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .btn-return {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-return:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="meditation-container">
+        <h1 class="meditation-title">淨化冥想</h1>
+        
+        <div class="crystal-ball-container">
+            <div class="crystal-ball">
+                <div class="crystal-fluid"></div>
+                <div class="crystal-vortex"></div>
+                <div class="crystal-sparkles" id="sparkles"></div>
+            </div>
+            <div class="base-ring"></div>
+            <div class="crystal-base"></div>
+        </div>
+        
+        <p class="meditation-text">專注於水晶球的旋轉，深呼吸，讓你的思緒平靜下來。感受能量的流動，淨化你的心靈。</p>
+        
+        <div class="light-particles" id="particles"></div>
+        
+        <a href="index.html" class="btn btn-return">返回首頁</a>
+    </div>
+    
+    <script>
+        // 創建光粒子效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 隨機大小
+                const size = Math.random() * 8 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 隨機位置
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // 隨機動畫延遲
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // 創建水晶球內部光點
+            const sparklesContainer = document.getElementById('sparkles');
+            const sparkleCount = 15;
+            const sparkles = [];
+            
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                
+                // 隨機大小
+                const size = Math.random() * 4 + 1;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                
+                // 隨機位置
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 80;
+                const x = 50 + Math.cos(angle) * distance;
+                const y = 50 + Math.sin(angle) * distance;
+                
+                sparkle.style.left = `${x}%`;
+                sparkle.style.top = `${y}%`;
+                
+                // 隨機動畫延遲
+                sparkle.style.animationDelay = `${Math.random() * 3}s`;
+                
+                sparklesContainer.appendChild(sparkle);
+                sparkles.push({
+                    element: sparkle,
+                    x: x,
+                    y: y,
+                    initialX: x,
+                    initialY: y,
+                    speed: Math.random() * 0.3 + 0.1 // 不同光點有不同的移動速度
+                });
+            }
+            
+            // 添加滑鼠移動事件監聽
+            const crystalBall = document.querySelector('.crystal-ball');
+            let mouseX = 0, mouseY = 0;
+            let ballRect = null;
+            
+            // 獲取水晶球的位置和尺寸
+            function updateBallRect() {
+                ballRect = crystalBall.getBoundingClientRect();
+            }
+            
+            // 初始化時獲取水晶球位置
+            updateBallRect();
+            
+            // 窗口大小改變時更新水晶球位置
+            window.addEventListener('resize', updateBallRect);
+            
+            // 監聽滑鼠在水晶球上的移動
+            crystalBall.addEventListener('mousemove', function(e) {
+                // 計算滑鼠在水晶球內的相對位置 (0-100%)
+                mouseX = ((e.clientX - ballRect.left) / ballRect.width) * 100;
+                mouseY = ((e.clientY - ballRect.top) / ballRect.height) * 100;
+                
+                // 確保值在0-100範圍內
+                mouseX = Math.max(0, Math.min(100, mouseX));
+                mouseY = Math.max(0, Math.min(100, mouseY));
+            });
+            
+            // 滑鼠離開水晶球時，光點逐漸回到原位
+            crystalBall.addEventListener('mouseleave', function() {
+                mouseX = -1; // 標記滑鼠已離開
+                mouseY = -1;
+            });
+            
+            // 動畫循環，使光點跟隨滑鼠移動
+            function animateSparkles() {
+                sparkles.forEach(sparkle => {
+                    if (mouseX >= 0 && mouseY >= 0) {
+                        // 滑鼠在水晶球內時，光點被吸引向滑鼠方向移動
+                        // 計算目標位置（在原始位置和滑鼠位置之間）
+                        const targetX = sparkle.initialX + (mouseX - 50) * 0.5;
+                        const targetY = sparkle.initialY + (mouseY - 50) * 0.5;
+                        
+                        // 平滑過渡到新位置
+                        sparkle.x += (targetX - sparkle.x) * sparkle.speed;
+                        sparkle.y += (targetY - sparkle.y) * sparkle.speed;
+                        
+                        // 確保光點不會超出水晶球範圍（保持在中心80%區域內）
+                        sparkle.x = Math.max(10, Math.min(90, sparkle.x));
+                        sparkle.y = Math.max(10, Math.min(90, sparkle.y));
+                    } else {
+                        // 滑鼠離開時，光點緩慢回到原始位置
+                        sparkle.x += (sparkle.initialX - sparkle.x) * 0.05;
+                        sparkle.y += (sparkle.initialY - sparkle.y) * 0.05;
+                    }
+                    
+                    // 更新光點位置
+                    sparkle.element.style.left = `${sparkle.x}%`;
+                    sparkle.element.style.top = `${sparkle.y}%`;
+                });
+                
+                requestAnimationFrame(animateSparkles);
+            }
+            
+            // 啟動動畫
+            animateSparkles();
+        });
+    </script>
+    
+    <!-- 將音樂播放器移到這裡，body標籤內的末尾 -->
+    <div class="music-player">
+        <audio id="background-music" loop>
+            <source src="audio/background-music.mp3" type="audio/mpeg">
+            您的瀏覽器不支持音頻元素。
+        </audio>
+        <button id="music-toggle" class="music-btn">
+            <i class="music-icon">🎵</i>
+        </button>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

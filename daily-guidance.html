@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日指引 - 神秘塔羅</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 添加月亮元素 -->
+    <div class="moon"></div>
+    <!-- 保留星星背景 -->
+    <div class="star-small"></div>
+    <div class="star-medium"></div>
+    <div class="star-large"></div>
+    
+    <div class="container">
+        <header>
+            <h1>今日指引</h1>
+            <p class="tagline">聆聽塔羅的智慧，指引你的一天</p>
+        </header>
+        
+        <main>
+            <div class="text-center">
+                <p class="instruction">點擊下方按鈕，獲取今日的塔羅指引</p>
+                <button id="draw-button" class="btn btn-large btn-draw">抽取今日指引牌</button>
+            </div>
+            
+            <div class="card-container">
+                <!-- 卡片將由 JavaScript 動態生成 -->
+            </div>
+            
+            <div class="card-meaning" style="display: none;">
+                <!-- 卡片解釋將由 JavaScript 動態生成 -->
+            </div>
+            
+            <div class="text-center">
+                <a href="index.html" class="btn btn-return">返回首頁</a>
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2025神秘塔羅 - 探索你的命運</p>
+        </footer>
+    </div>
+    
+    <!-- 將音樂播放器移到這裡，body標籤內的末尾 -->
+    <div class="music-player">
+        <audio id="background-music" loop>
+            <source src="audio/background-music.mp3" type="audio/mpeg">
+            您的瀏覽器不支持音頻元素。
+        </audio>
+        <button id="music-toggle" class="music-btn">
+            <i class="music-icon">🎵</i>
+        </button>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>

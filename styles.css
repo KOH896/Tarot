@@ -1,0 +1,2111 @@
+/* 全局樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', serif;
+    background: linear-gradient(135deg, #1a0033, #000033);
+    background-attachment: fixed;
+    color: #fff;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* 星空背景效果 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: transparent;
+    /* 移除原有的背景图像和动画 */
+}
+
+/* 创建三层不同大小的星星 - 调整为更小的尺寸 */
+.star-small, .star-medium, .star-large {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.star-small {
+    background-image: radial-gradient(white, rgba(255,255,255,.3) 0.5px, transparent 1.5px);
+    background-size: 250px 250px; /* 减小背景尺寸 */
+    background-position: 40px 60px;
+    opacity: 0.9;
+    animation: twinkle-small 8s ease-in-out infinite;
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.8));
+}
+
+.star-medium {
+    background-image: radial-gradient(white, rgba(255,255,255,.4) 1px, transparent 2.5px);
+    background-size: 400px 400px; /* 减小背景尺寸 */
+    background-position: 0 0;
+    opacity: 0.85;
+    animation: twinkle-medium 12s ease-in-out infinite 1s;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+}
+
+.star-large {
+    background-image: radial-gradient(white, rgba(255,255,255,.35) 1.5px, transparent 3px);
+    background-size: 200px 200px; /* 减小背景尺寸 */
+    background-position: 130px 270px;
+    opacity: 0.8;
+    animation: twinkle-large 15s ease-in-out infinite 2s;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 1));
+}
+
+/* 流星效果 - 修改为鼠标触发 */
+.shooting-star {
+    position: absolute;
+    z-index: 10;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+    transform: rotate(-45deg);
+    opacity: 0;
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff;
+    pointer-events: none; /* 确保流星不会干扰鼠标事件 */
+    animation: none; /* 移除自动动画 */
+}
+
+/* 流星动画 */
+@keyframes shooting {
+    0% {
+        transform: translateX(0) translateY(0) rotate(-45deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(150px) translateY(150px) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+/* 为不同大小的星星创建不同的动画 */
+@keyframes twinkle-small {
+    0%, 100% { opacity: 0.5; }
+    25% { opacity: 1; }
+    50% { opacity: 0.7; }
+    75% { opacity: 1; }
+}
+
+@keyframes twinkle-medium {
+    0%, 100% { opacity: 0.6; }
+    30% { opacity: 1; }
+    60% { opacity: 0.8; }
+    90% { opacity: 1; }
+}
+
+@keyframes twinkle-large {
+    0%, 100% { opacity: 0.4; }
+    20% { opacity: 1; }
+    40% { opacity: 0.6; }
+    70% { opacity: 1; }
+    90% { opacity: 0.7; }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: #e6c2ff;
+    text-shadow: 0 0 10px rgba(230, 194, 255, 0.5);
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #b68cff;
+}
+
+/* 主菜單樣式 - 橫向排列 */
+.main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+    flex-grow: 1;
+    padding: 2rem 0;
+    position: relative;
+    height: 60vh;
+}
+
+.menu-card {
+    background: rgba(40, 10, 80, 0.6);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    width: 220px;
+    height: 280px;
+}
+
+/* 左側菜單項 */
+.left-item {
+    margin-right: 10px;
+}
+
+/* 右側菜單項 */
+.right-item {
+    margin-left: 10px;
+}
+
+/* 中間較大的今日指引 */
+.center-item {
+    width: 300px;
+    height: 350px;
+    z-index: 5;
+    background: rgba(60, 20, 100, 0.7);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+}
+
+.menu-card:hover {
+    transform: translateY(-10px) scale(1.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    width: 300px;
+    height: 350px;
+    background: rgba(60, 20, 100, 0.7);
+    z-index: 10;
+}
+
+/* 修正：使用更精確的選擇器處理中間卡片在其他卡片懸停時的樣式 */
+#menu-single:hover ~ #menu-daily,
+#menu-three:hover ~ #menu-daily,
+#menu-consultation:hover ~ #menu-daily,
+#menu-meditation:hover ~ #menu-daily {
+    width: 220px ;
+    height: 280px ;
+    background: rgba(40, 10, 80, 0.6) ;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) ;
+    z-index: 1 ;
+    transform: translateY(0) scale(1) ;
+}
+
+/* 確保中間卡片自己被懸停時保持大尺寸 */
+.center-item:hover {
+    width: 300px;
+    height: 350px;
+    background: rgba(60, 20, 100, 0.7);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    z-index: 10;
+}
+
+/* 固定所有字型大小 */
+.menu-card .menu-icon {
+    font-size: 2.5rem ;
+    margin-bottom: 1rem ;
+    transition: all 0.3s ease;
+}
+
+.center-item .menu-icon {
+    font-size: 3.5rem ;
+    margin-bottom: 1.2rem ;
+}
+
+.menu-card .menu-item h2 {
+    font-size: 1.5rem ;
+    margin-bottom: 0.8rem ;
+    transition: all 0.3s ease;
+}
+
+.center-item .menu-item h2 {
+    font-size: 2rem ;
+    margin-bottom: 1rem ;
+}
+
+.menu-card .menu-item p {
+    font-size: 0.9rem ;
+    transition: all 0.3s ease;
+}
+
+.center-item .menu-item p {
+    font-size: 1.1rem ;
+}
+
+/* 修改：懸停時放大字型大小 */
+.menu-card:hover .menu-icon {
+    font-size: 3.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.center-item:hover .menu-icon {
+    font-size: 4.2rem;
+    margin-bottom: 1.4rem;
+}
+
+.menu-card:hover .menu-item h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.center-item:hover .menu-item h2 {
+    font-size: 2.4rem;
+    margin-bottom: 1.2rem;
+}
+
+.menu-card:hover .menu-item p {
+    font-size: 1.1rem;
+}
+
+.center-item:hover .menu-item p {
+    font-size: 1.3rem;
+}
+
+/* 移除中間卡片在其他卡片懸停時的字型大小變化 */ 
+#menu-single:hover ~ #menu-daily .menu-icon,
+#menu-three:hover ~ #menu-daily .menu-icon,
+#menu-consultation:hover ~ #menu-daily .menu-icon,
+#menu-meditation:hover ~ #menu-daily .menu-icon {
+    font-size: 2.5rem ;
+    margin-bottom: 1rem ;
+}
+
+#menu-single:hover ~ #menu-daily .menu-item h2,
+#menu-three:hover ~ #menu-daily .menu-item h2,
+#menu-consultation:hover ~ #menu-daily .menu-item h2,
+#menu-meditation:hover ~ #menu-daily .menu-item h2 {
+    font-size: 1.5rem ;
+    margin-bottom: 0.8rem ;
+}
+
+#menu-single:hover ~ #menu-daily .menu-item p,
+#menu-three:hover ~ #menu-daily .menu-item p,
+#menu-consultation:hover ~ #menu-daily .menu-item p,
+#menu-meditation:hover ~ #menu-daily .menu-item p {
+    font-size: 0.9rem ;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    height: 100%;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    color: #b68cff;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 卡片樣式 */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.tarot-card {
+    width: 220px; /* 恢复原始宽度 */
+    height: 400px; /* 恢复原始高度 */
+    background: rgba(40, 10, 80, 0.7);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(230, 194, 255, 0.2);
+    transition: transform 0.5s ease;
+}
+
+.tarot-card:hover {
+    transform: translateY(-15px);
+}
+
+.card-image {
+    width: 180px; /* 恢复原始宽度 */
+    height: 400px; /* 恢复原始高度 */
+    background-color: #4a2b7a;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: #e6c2ff;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.card-position {
+    font-size: 0.9rem;
+    color: #b68cff;
+    text-align: center;
+}
+
+/* 三牌占卜頁面解牌內容字號調整 */
+.card-position h2 {
+    font-size: 1.6rem; /* 原來約1.5rem，增大2個尺寸 */
+    margin-bottom: 1rem;
+    color: #e6c2ff;
+}
+
+.card-position h3 {
+    font-size: 1.6rem; /* 原來約1.5rem，增大2個尺寸 */
+    margin-bottom: 0.8rem;
+    color: #b68cff;
+}
+
+.card-position p {
+    font-size: 1.2rem; /* 原來約1.1rem，增大2個尺寸 */
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.card-position .english-meaning {
+    font-size: 1.1rem; /* 原來約1rem，增大2個尺寸 */
+    line-height: 1.6;
+}
+
+/* 按鈕樣式 */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: rgba(182, 140, 255, 0.2);
+    color: #e6c2ff;
+    border: 1px solid rgba(230, 194, 255, 0.3);
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin: 1rem 0;
+}
+
+.btn:hover {
+    background: rgba(182, 140, 255, 0.4);
+    box-shadow: 0 0 15px rgba(230, 194, 255, 0.5);
+}
+
+.btn-large {
+    padding: 1rem 3rem;
+    font-size: 1.3rem;
+}
+
+/* 卡片解釋區域 */
+.card-meaning {
+    background: rgba(40, 10, 80, 0.6);
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-meaning h3 {
+    color: #e6c2ff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(230, 194, 255, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+/* 卡片解釋區域標題統一 */
+.card-meaning > h2 {
+    font-size: 1.8rem; /* 統一「塔羅牌解讀」標題大小 */
+    margin-bottom: 1.2rem;
+    color: #e6c2ff;
+    text-align: center;
+    text-shadow: 0 0 5px rgba(230, 194, 255, 0.5);
+}
+
+.card-meaning p {
+    line-height: 1.6;
+    color: #ddd;
+}
+
+/* 響應式設計 */
+@media (max-width: 1200px) {
+    .main-menu {
+        flex-wrap: wrap;
+        height: auto;
+    }
+    
+    .menu-card {
+        margin: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-menu {
+        flex-direction: column;
+    }
+    
+    .menu-card, .center-item {
+        width: 90%;
+        max-width: 300px;
+        height: auto;
+        margin: 10px 0;
+    }
+    
+    .menu-item {
+        padding: 2rem 1rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .card-container {
+        flex-direction: column;
+    }
+}
+
+/* 卡片动画相关样式 */
+.card-deck {
+    width: 220px;
+    height: 380px;
+    background: rgba(40, 10, 80, 0.7);
+    border-radius: 10px;
+    position: relative;
+    margin: 0 auto 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background-image: url('images/tarotcardback.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.card-deck::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(230, 194, 255, 0.2), rgba(40, 10, 80, 0.1));
+    border-radius: 10px;
+}
+
+/* 卡片翻转动画 */
+.tarot-card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-front {
+    background-color: #4a2b7a;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* 卡片出现动画 */
+@keyframes cardAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card-appear {
+    animation: cardAppear 0.8s ease forwards;
+}
+
+/* 卡片发光效果 */
+@keyframes cardGlow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(230, 194, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(230, 194, 255, 0.8), 0 0 50px rgba(230, 194, 255, 0.4);
+    }
+}
+
+.card-glow {
+    animation: cardGlow 2s infinite;
+}
+
+/* 抽牌按钮特殊样式 */
+.btn-draw {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-draw:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+.btn-draw:hover {
+    box-shadow: 0 7px 20px rgba(155, 89, 182, 0.6);
+    transform: translateY(-3px);
+}
+
+.btn-draw:hover:before {
+    left: 0;
+}
+
+.btn-draw:active {
+    transform: translateY(1px);
+}
+
+/* 添加抽牌图标 */
+.btn-draw:after {
+    content: '✨';
+    margin-left: 8px;
+}
+
+/* 返回按钮样式 */
+.btn-return {
+    background: transparent;
+    border: 1px solid rgba(230, 194, 255, 0.5);
+    color: #e6c2ff;
+}
+
+.btn-return:hover {
+    background: rgba(230, 194, 255, 0.1);
+}
+
+.btn-return:before {
+    content: '←';
+    margin-right: 8px;
+}
+
+/* 英文解释样式 */
+.english-meaning {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #b8c6db;
+    border-top: 1px solid rgba(230, 194, 255, 0.2);
+    padding-top: 1rem;
+}
+
+/* 月亮样式 */
+.moon {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%);
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.7);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 月亮阴影部分 */
+.moon::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(0, 0, 30, 0.2);
+    filter: blur(5px);
+}
+
+/* 月亮光晕效果 */
+.moon::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+    z-index: -1;
+}
+
+
+/* 鼠标跟随星星样式 */
+.follow-star {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0) 100%);
+    border-radius: 50%;
+    pointer-events: none; /* 确保星星不会干扰鼠标事件 */
+    z-index: 1000;
+    transition: transform 0.1s ease-out;
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff;
+    transform: translate(-50%, -50%);
+    animation: star-twinkle 1.5s ease-in-out infinite;
+}
+
+@keyframes star-twinkle {
+    0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.7; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+/* 三牌占卜結語樣式 */
+.card-conclusion {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(30, 30, 60, 0.7);
+    border-radius: 10px;
+    border-left: 4px solid #9370DB;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-conclusion h3 {
+    color: #d4b8ff;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    text-shadow: 0 0 5px rgba(212, 184, 255, 0.5);
+}
+
+.card-conclusion p {
+    color: #f0f0f0;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+/* 三牌占卜特定樣式 */
+.three-card-spread {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .three-card-spread {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.card-reading {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(230, 194, 255, 0.2);
+}
+
+.card-reading:last-child {
+    border-bottom: none;
+}
+
+.position-title {
+    margin-bottom: 20px; /* 增加與卡片的距離 */
+    text-align: center; /* 確保文字居中 */
+    color: #e6c2ff; /* 使用與其他標題一致的顏色 */
+    font-size: 1.5rem; /* 適當的字體大小 */
+    text-shadow: 0 0 5px rgba(230, 194, 255, 0.5); /* 添加發光效果 */
+}
+
+.tarot-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 15px; /* 增加卡片之間的間距 */
+}
+
+/* 水晶球鼠标样式 */
+.btn, .menu-card, a, button, [role="button"], .card-deck {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="rgba(230, 194, 255, 0.4)" stroke="white" stroke-width="1"/><circle cx="16" cy="16" r="8" fill="rgba(230, 194, 255, 0.6)"/><circle cx="12" cy="12" r="2" fill="white" opacity="0.8"/></svg>') 16 16, auto;
+}
+
+/* 普通状态下的鼠标样式（可选） */
+body {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="rgba(255, 255, 255, 0.2)" stroke="white" stroke-width="1"/><circle cx="12" cy="12" r="5" fill="rgba(255, 255, 255, 0.3)"/><circle cx="9" cy="9" r="1.5" fill="white" opacity="0.6"/></svg>') 12 12, auto;
+}
+
+/* 音樂播放器樣式 */
+.music-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.music-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(60, 20, 100, 0.7);
+    border: 2px solid rgba(230, 194, 255, 0.5);
+    color: #e6c2ff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(230, 194, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(230, 194, 255, 0.5);
+}
+
+.music-btn.playing {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(230, 194, 255, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(230, 194, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(230, 194, 255, 0);
+    }
+}
+/* 为不同大小的星星创建不同的动画 */
+@keyframes twinkle-small {
+    0%, 100% { opacity: 0.5; }
+    25% { opacity: 1; }
+    50% { opacity: 0.7; }
+    75% { opacity: 1; }
+}
+
+@keyframes twinkle-medium {
+    0%, 100% { opacity: 0.6; }
+    30% { opacity: 1; }
+    60% { opacity: 0.8; }
+    90% { opacity: 1; }
+}
+
+@keyframes twinkle-large {
+    0%, 100% { opacity: 0.4; }
+    20% { opacity: 1; }
+    40% { opacity: 0.6; }
+    70% { opacity: 1; }
+    90% { opacity: 0.7; }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: #e6c2ff;
+    text-shadow: 0 0 10px rgba(230, 194, 255, 0.5);
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #b68cff;
+}
+
+/* 主菜單樣式 - 橫向排列 */
+.main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+    flex-grow: 1;
+    padding: 2rem 0;
+    position: relative;
+    height: 60vh;
+}
+
+.menu-card {
+    background: rgba(40, 10, 80, 0.6);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    width: 220px;
+    height: 280px;
+}
+
+/* 左側菜單項 */
+.left-item {
+    margin-right: 10px;
+}
+
+/* 右側菜單項 */
+.right-item {
+    margin-left: 10px;
+}
+
+/* 中間較大的今日指引 */
+.center-item {
+    width: 300px;
+    height: 350px;
+    z-index: 5;
+    background: rgba(60, 20, 100, 0.7);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+}
+
+.menu-card:hover {
+    transform: translateY(-10px) scale(1.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    width: 300px;
+    height: 350px;
+    background: rgba(60, 20, 100, 0.7);
+    z-index: 10;
+}
+
+/* 修正：使用更精確的選擇器處理中間卡片在其他卡片懸停時的樣式 */
+#menu-single:hover ~ #menu-daily,
+#menu-three:hover ~ #menu-daily,
+#menu-consultation:hover ~ #menu-daily,
+#menu-meditation:hover ~ #menu-daily {
+    width: 220px ;
+    height: 280px ;
+    background: rgba(40, 10, 80, 0.6) ;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) ;
+    z-index: 1 ;
+    transform: translateY(0) scale(1) ;
+}
+
+/* 確保中間卡片自己被懸停時保持大尺寸 */
+.center-item:hover {
+    width: 300px;
+    height: 350px;
+    background: rgba(60, 20, 100, 0.7);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    z-index: 10;
+}
+
+/* 固定懸停時的圖標和文字大小 */
+.menu-card .menu-icon {
+    font-size: 2.5rem ;
+    margin-bottom: 1rem ;
+    transition: all 0.3s ease;
+}
+
+.center-item .menu-icon {
+    font-size: 3.5rem ;
+    margin-bottom: 1.2rem ;
+}
+
+.menu-card .menu-item h2 {
+    font-size: 1.5rem ;
+    margin-bottom: 0.8rem ;
+    transition: all 0.3s ease;
+}
+
+.center-item .menu-item h2 {
+    font-size: 2rem ;
+    margin-bottom: 1rem ;
+}
+
+.menu-card .menu-item p {
+    font-size: 0.9rem ;
+    transition: all 0.3s ease;
+}
+
+.center-item .menu-item p {
+    font-size: 1.1rem ;
+}
+/* 修改：懸停時放大字型大小（放大一倍） */
+.menu-card:hover .menu-icon {
+    font-size: 12.5rem; /* 從2.5rem放大五倍 */
+    margin-bottom: 1.2rem;
+}
+
+.center-item:hover .menu-icon {
+    font-size: 17.5rem; /* 從3.5rem放大五倍 */
+    margin-bottom: 1.4rem;
+}
+
+.menu-card:hover .menu-item h2 {
+    font-size:  7.5rem; /* 從1.5rem放大五倍 */
+    margin-bottom: 1rem;
+}
+
+.center-item:hover .menu-item h2 {
+    font-size: 10rem; /* 從2rem放大五倍 */
+    margin-bottom: 1.2rem;
+}
+
+.menu-card:hover .menu-item p {
+    font-size: 4.5rem; /* 從0.9rem放大五倍 */
+}
+
+.center-item:hover .menu-item p {
+    font-size: 5.5rem; /* 從1.1rem放大五倍 */
+}
+/* 移除中間卡片在其他卡片懸停時的字型大小變化 */ 
+#menu-single:hover ~ #menu-daily .menu-icon,
+#menu-three:hover ~ #menu-daily .menu-icon,
+#menu-consultation:hover ~ #menu-daily .menu-icon,
+#menu-meditation:hover ~ #menu-daily .menu-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+#menu-single:hover ~ #menu-daily .menu-item h2,
+#menu-three:hover ~ #menu-daily .menu-item h2,
+#menu-consultation:hover ~ #menu-daily .menu-item h2,
+#menu-meditation:hover ~ #menu-daily .menu-item h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+#menu-single:hover ~ #menu-daily .menu-item p,
+#menu-three:hover ~ #menu-daily .menu-item p,
+#menu-consultation:hover ~ #menu-daily .menu-item p,
+#menu-meditation:hover ~ #menu-daily .menu-item p {
+    font-size: 0.9rem;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    height: 100%;
+}
+
+.menu-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* 中間項目的圖標更大 */
+.center-item .menu-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.menu-item h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: #e6c2ff;
+}
+
+/* 中間項目的標題更大 */
+.center-item .menu-item h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.menu-item p {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+/* 中間項目的描述文字更大 */
+.center-item .menu-item p {
+    font-size: 1.1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    color: #b68cff;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 卡片樣式 */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.tarot-card {
+    width: 220px; /* 恢复原始宽度 */
+    height: 400px; /* 恢复原始高度 */
+    background: rgba(40, 10, 80, 0.7);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(230, 194, 255, 0.2);
+    transition: transform 0.5s ease;
+}
+
+.tarot-card:hover {
+    transform: translateY(-15px);
+}
+
+.card-image {
+    width: 180px; /* 恢复原始宽度 */
+    height: 400px; /* 恢复原始高度 */
+    background-color: #4a2b7a;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: #e6c2ff;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.card-position {
+    font-size: 0.9rem;
+    color: #b68cff;
+    text-align: center;
+}
+
+/* 三牌占卜頁面解牌內容字號調整 */
+.card-position h2 {
+    font-size: 1.8rem; /* 原來約1.5rem，增大2個尺寸 */
+    margin-bottom: 1rem;
+    color: #e6c2ff;
+}
+
+.card-position h3 {
+    font-size: 1.7rem; /* 原來約1.5rem，增大2個尺寸 */
+    margin-bottom: 0.8rem;
+    color: #b68cff;
+}
+
+.card-position p {
+    font-size: 1.3rem; /* 原來約1.1rem，增大2個尺寸 */
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.card-position .english-meaning {
+    font-size: 1.2rem; /* 原來約1rem，增大2個尺寸 */
+    line-height: 1.6;
+}
+
+/* 單牌占卜和今日指引頁面解牌內容字號調整 */
+.card-reading h3 {
+    font-size: 1.7rem; /* 與三牌占卜頁面一致 */
+    margin-bottom: 0.8rem;
+    color: #b68cff;
+}
+
+.card-reading h2 {
+    font-size: 1.8rem; /* 與三牌占卜頁面一致 */
+    margin-bottom: 1rem;
+    color: #e6c2ff;
+}
+
+.card-reading p {
+    font-size: 1.3rem; /* 與三牌占卜頁面一致 */
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.card-reading .english-meaning {
+    font-size: 1.2rem; /* 與三牌占卜頁面一致 */
+    line-height: 1.6;
+}
+
+/* 按鈕樣式 */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: rgba(182, 140, 255, 0.2);
+    color: #e6c2ff;
+    border: 1px solid rgba(230, 194, 255, 0.3);
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin: 1rem 0;
+}
+
+.btn:hover {
+    background: rgba(182, 140, 255, 0.4);
+    box-shadow: 0 0 15px rgba(230, 194, 255, 0.5);
+}
+
+.btn-large {
+    padding: 1rem 3rem;
+    font-size: 1.3rem;
+}
+
+/* 卡片解釋區域 */
+.card-meaning {
+    background: rgba(40, 10, 80, 0.6);
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-meaning h3 {
+    color: #e6c2ff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(230, 194, 255, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+/* 卡片解釋區域標題統一 */
+.card-meaning > h2 {
+    font-size: 1.8rem; /* 統一「塔羅牌解讀」標題大小 */
+    margin-bottom: 1.2rem;
+    color: #e6c2ff;
+    text-align: center;
+    text-shadow: 0 0 5px rgba(230, 194, 255, 0.5);
+}
+
+.card-meaning p {
+    line-height: 1.6;
+    color: #ddd;
+}
+
+/* 響應式設計 */
+@media (max-width: 1200px) {
+    .main-menu {
+        flex-wrap: wrap;
+        height: auto;
+    }
+    
+    .menu-card {
+        margin: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-menu {
+        flex-direction: column;
+    }
+    
+    .menu-card, .center-item {
+        width: 90%;
+        max-width: 300px;
+        height: auto;
+        margin: 10px 0;
+    }
+    
+    .menu-item {
+        padding: 2rem 1rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .card-container {
+        flex-direction: column;
+    }
+}
+
+/* 卡片动画相关样式 */
+.card-deck {
+    width: 220px;
+    height: 380px;
+    background: rgba(40, 10, 80, 0.7);
+    border-radius: 10px;
+    position: relative;
+    margin: 0 auto 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background-image: url('images/tarotcardback.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.card-deck::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(230, 194, 255, 0.2), rgba(40, 10, 80, 0.1));
+    border-radius: 10px;
+}
+
+/* 卡片翻转动画 */
+.tarot-card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-front {
+    background-color: #4a2b7a;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* 卡片出现动画 */
+@keyframes cardAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card-appear {
+    animation: cardAppear 0.8s ease forwards;
+}
+
+/* 卡片发光效果 */
+@keyframes cardGlow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(230, 194, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(230, 194, 255, 0.8), 0 0 50px rgba(230, 194, 255, 0.4);
+    }
+}
+
+.card-glow {
+    animation: cardGlow 2s infinite;
+}
+
+/* 抽牌按钮特殊样式 */
+.btn-draw {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-draw:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+.btn-draw:hover {
+    box-shadow: 0 7px 20px rgba(155, 89, 182, 0.6);
+    transform: translateY(-3px);
+}
+
+.btn-draw:hover:before {
+    left: 0;
+}
+
+.btn-draw:active {
+    transform: translateY(1px);
+}
+
+/* 添加抽牌图标 */
+.btn-draw:after {
+    content: '✨';
+    margin-left: 8px;
+}
+
+/* 返回按钮样式 */
+.btn-return {
+    background: transparent;
+    border: 1px solid rgba(230, 194, 255, 0.5);
+    color: #e6c2ff;
+}
+
+.btn-return:hover {
+    background: rgba(230, 194, 255, 0.1);
+}
+
+.btn-return:before {
+    content: '←';
+    margin-right: 8px;
+}
+
+/* 英文解释样式 */
+.english-meaning {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #b8c6db;
+    border-top: 1px solid rgba(230, 194, 255, 0.2);
+    padding-top: 1rem;
+}
+
+/* 月亮样式 */
+.moon {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%);
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.7);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 月亮阴影部分 */
+.moon::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(0, 0, 30, 0.2);
+    filter: blur(5px);
+}
+
+/* 月亮光晕效果 */
+.moon::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+    z-index: -1;
+}
+
+/* 小型流星效果 */
+.small-shooting-star {
+    position: fixed;
+    z-index: 5;
+    width: 30px; /* 比普通流星小 */
+    height: 1px; /* 比普通流星细 */
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+    opacity: 0;
+    box-shadow: 0 0 3px #fff, 0 0 5px #fff;
+    transition: opacity 0.1s ease-in;
+}
+
+/* 小型流星尾巴效果 */
+.small-shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 1px #fff;
+    transform: translateX(-100%);
+}
+
+/* 小型流星动画 */
+@keyframes small-shooting {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    color: #e6c2ff;
+    text-shadow: 0 0 10px rgba(230, 194, 255, 0.5);
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #b68cff;
+}
+
+/* 主菜單樣式 - 橫向排列 */
+.main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+    flex-grow: 1;
+    padding: 2rem 0;
+    position: relative;
+    height: 60vh;
+}
+
+.menu-card {
+    background: rgba(40, 10, 80, 0.6);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    width: 220px;
+    height: 280px;
+}
+
+/* 左側菜單項 */
+.left-item {
+    margin-right: 10px;
+}
+
+/* 右側菜單項 */
+.right-item {
+    margin-left: 10px;
+}
+
+/* 中間較大的今日指引 */
+.center-item {
+    width: 300px;
+    height: 350px;
+    z-index: 5;
+    background: rgba(60, 20, 100, 0.7);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+}
+
+.menu-card:hover {
+    transform: translateY(-10px) scale(1.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    width: 300px;
+    height: 350px;
+    background: rgba(60, 20, 100, 0.7);
+    z-index: 10;
+}
+
+/* 修正：使用更精確的選擇器處理中間卡片在其他卡片懸停時的樣式 */
+#menu-single:hover ~ #menu-daily,
+#menu-three:hover ~ #menu-daily,
+#menu-consultation:hover ~ #menu-daily,
+#menu-meditation:hover ~ #menu-daily {
+    width: 220px ;
+    height: 280px ;
+    background: rgba(40, 10, 80, 0.6) ;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) ;
+    z-index: 1 ;
+    transform: translateY(0) scale(1) ;
+}
+
+/* 確保中間卡片自己被懸停時保持大尺寸 */
+.center-item:hover {
+    width: 300px;
+    height: 350px;
+    background: rgba(60, 20, 100, 0.7);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    z-index: 10;
+}
+
+/* 固定懸停時的圖標和文字大小 */
+.menu-card .menu-icon {
+    font-size: 2.5rem ;
+    margin-bottom: 1rem ;
+    transition: all 0.3s ease;
+}
+
+.center-item .menu-icon {
+    font-size: 3.5rem ;
+    margin-bottom: 1.2rem ;
+}
+
+.menu-card .menu-item h2 {
+    font-size: 1.5rem ;
+    margin-bottom: 0.8rem ;
+    transition: all 0.3s ease;
+}
+
+.center-item .menu-item h2 {
+    font-size: 2rem ;
+    margin-bottom: 1rem ;
+}
+
+.menu-card .menu-item p {
+    font-size: 0.9rem ;
+    transition: all 0.3s ease;
+}
+
+.center-item .menu-item p {
+    font-size: 1.1rem ;
+}
+
+
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    height: 100%;
+}
+
+.menu-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* 中間項目的圖標更大 */
+.center-item .menu-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.menu-item h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    color: #e6c2ff;
+}
+
+/* 中間項目的標題更大 */
+.center-item .menu-item h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.menu-item p {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+/* 中間項目的描述文字更大 */
+.center-item .menu-item p {
+    font-size: 1.1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    color: #b68cff;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 卡片樣式 */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.tarot-card {
+    width: 220px; /* 恢复原始宽度 */
+    height: 400px; /* 恢复原始高度 */
+    background: rgba(40, 10, 80, 0.7);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(230, 194, 255, 0.2);
+    transition: transform 0.5s ease;
+}
+
+.tarot-card:hover {
+    transform: translateY(-15px);
+}
+
+.card-image {
+    width: 180px; /* 恢复原始宽度 */
+    height: 400px; /* 恢复原始高度 */
+    background-color: #4a2b7a;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: #e6c2ff;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.card-position {
+    font-size: 0.9rem;
+    color: #b68cff;
+    text-align: center;
+}
+
+/* 三牌占卜頁面解牌內容字號調整 */
+.card-position h2 {
+    font-size: 1.8rem; /* 原來約1.5rem，增大2個尺寸 */
+    margin-bottom: 1rem;
+    color: #e6c2ff;
+}
+
+.card-position h3 {
+    font-size: 1.7rem; /* 原來約1.5rem，增大2個尺寸 */
+    margin-bottom: 0.8rem;
+    color: #b68cff;
+}
+
+.card-position p {
+    font-size: 1.3rem; /* 原來約1.1rem，增大2個尺寸 */
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.card-position .english-meaning {
+    font-size: 1.2rem; /* 原來約1rem，增大2個尺寸 */
+    line-height: 1.6;
+}
+
+/* 單牌占卜和今日指引頁面解牌內容字號調整 */
+.card-reading h3 {
+    font-size: 1.7rem; /* 與三牌占卜頁面一致 */
+    margin-bottom: 0.8rem;
+    color: #b68cff;
+}
+
+.card-reading h2 {
+    font-size: 1.8rem; /* 與三牌占卜頁面一致 */
+    margin-bottom: 1rem;
+    color: #e6c2ff;
+}
+
+.card-reading p {
+    font-size: 1.3rem; /* 與三牌占卜頁面一致 */
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.card-reading .english-meaning {
+    font-size: 1.2rem; /* 與三牌占卜頁面一致 */
+    line-height: 1.6;
+}
+
+/* 按鈕樣式 */
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: rgba(182, 140, 255, 0.2);
+    color: #e6c2ff;
+    border: 1px solid rgba(230, 194, 255, 0.3);
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin: 1rem 0;
+}
+
+.btn:hover {
+    background: rgba(182, 140, 255, 0.4);
+    box-shadow: 0 0 15px rgba(230, 194, 255, 0.5);
+}
+
+.btn-large {
+    padding: 1rem 3rem;
+    font-size: 1.3rem;
+}
+
+/* 卡片解釋區域 */
+.card-meaning {
+    background: rgba(40, 10, 80, 0.6);
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-meaning h3 {
+    color: #e6c2ff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(230, 194, 255, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+/* 卡片解釋區域標題統一 */
+.card-meaning > h2 {
+    font-size: 1.8rem; /* 統一「塔羅牌解讀」標題大小 */
+    margin-bottom: 1.2rem;
+    color: #e6c2ff;
+    text-align: center;
+    text-shadow: 0 0 5px rgba(230, 194, 255, 0.5);
+}
+
+.card-meaning p {
+    line-height: 1.6;
+    color: #ddd;
+}
+
+/* 響應式設計 */
+@media (max-width: 1200px) {
+    .main-menu {
+        flex-wrap: wrap;
+        height: auto;
+    }
+    
+    .menu-card {
+        margin: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-menu {
+        flex-direction: column;
+    }
+    
+    .menu-card, .center-item {
+        width: 90%;
+        max-width: 300px;
+        height: auto;
+        margin: 10px 0;
+    }
+    
+    .menu-item {
+        padding: 2rem 1rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .card-container {
+        flex-direction: column;
+    }
+}
+
+/* 卡片动画相关样式 */
+.card-deck {
+    width: 220px;
+    height: 380px;
+    background: rgba(40, 10, 80, 0.7);
+    border-radius: 10px;
+    position: relative;
+    margin: 0 auto 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background-image: url('images/tarotcardback.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.card-deck::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(230, 194, 255, 0.2), rgba(40, 10, 80, 0.1));
+    border-radius: 10px;
+}
+
+/* 卡片翻转动画 */
+.tarot-card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-front {
+    background-color: #4a2b7a;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* 卡片出现动画 */
+@keyframes cardAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card-appear {
+    animation: cardAppear 0.8s ease forwards;
+}
+
+/* 卡片发光效果 */
+@keyframes cardGlow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(230, 194, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(230, 194, 255, 0.8), 0 0 50px rgba(230, 194, 255, 0.4);
+    }
+}
+
+.card-glow {
+    animation: cardGlow 2s infinite;
+}
+
+/* 抽牌按钮特殊样式 */
+.btn-draw {
+    background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-draw:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+.btn-draw:hover {
+    box-shadow: 0 7px 20px rgba(155, 89, 182, 0.6);
+    transform: translateY(-3px);
+}
+
+.btn-draw:hover:before {
+    left: 0;
+}
+
+.btn-draw:active {
+    transform: translateY(1px);
+}
+
+/* 添加抽牌图标 */
+.btn-draw:after {
+    content: '✨';
+    margin-left: 8px;
+}
+
+/* 返回按钮样式 */
+.btn-return {
+    background: transparent;
+    border: 1px solid rgba(230, 194, 255, 0.5);
+    color: #e6c2ff;
+}
+
+.btn-return:hover {
+    background: rgba(230, 194, 255, 0.1);
+}
+
+.btn-return:before {
+    content: '←';
+    margin-right: 8px;
+}
+
+/* 英文解释样式 */
+.english-meaning {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #b8c6db;
+    border-top: 1px solid rgba(230, 194, 255, 0.2);
+    padding-top: 1rem;
+}
+
+/* 月亮样式 */
+.moon {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #d0d0d0 0%, #f0f0f0 50%, #ffffff 100%);
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.7);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 月亮阴影部分 */
+.moon::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(0, 0, 30, 0.2);
+    filter: blur(5px);
+}
+
+/* 月亮光晕效果 */
+.moon::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+    z-index: -1;
+}
