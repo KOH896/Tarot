@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>單牌占卜 - 神秘塔羅</title>
+    <title>感應占卜 - 神秘塔羅</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,33 +13,37 @@
     <div class="star-small"></div>
     <div class="star-medium"></div>
     <div class="star-large"></div>
-    
-    <!-- 添加右上角贊助按鈕 -->
-    <div class="coffee-button-container">
-        <a href="https://www.buymeacoffee.com/siu896" target="_blank" class="coffee-button">
-            <span class="coffee-icon">☕</span>
-            <span class="coffee-text">Buy Me a Coffee</span>
-        </a>
-    </div>
 
+        <!-- 添加右上角贊助按鈕 -->
+        <div class="coffee-button-container">
+            <a href="https://www.buymeacoffee.com/siu896" target="_blank" class="coffee-button">
+                <span class="coffee-icon">☕</span>
+                <span class="coffee-text">Buy Me a Coffee</span>
+            </a>
+        </div>
+    
     <div class="container">
         <header>
-            <h1>單牌占卜</h1>
-            <p class="tagline">心中默想問題，讓塔羅為你揭示答案</p>
+            <h1>感應占卜 <span class="title-icon">🌙</span></h1>
+            <p class="tagline">通過直覺選擇數字，讓塔羅牌揭示你的命運</p>
         </header>
         
         <main>
             <div class="text-center">
-                <p class="instruction">在心中默想你的問題，然後點擊下方按鈕抽取一張塔羅牌</p>
-                <button id="draw-button" class="btn btn-large btn-draw">抽取塔羅牌</button>
+                <p class="instruction">在心中默想你的問題，然後從下方數字中選擇三個數字</p>
+                <button id="shuffle-button" class="btn btn-large btn-draw">選擇塔羅牌</button>
+            </div>
+            
+            <div id="number-container" class="number-container" style="display: none;">
+                <!-- 數字將由JavaScript動態生成 -->
             </div>
             
             <div class="card-container">
-                <!-- 卡片將由 JavaScript 動態生成 -->
+                <!-- 卡片將由JavaScript動態生成 -->
             </div>
             
             <div class="card-meaning" style="display: none;">
-                <!-- 卡片解釋將由 JavaScript 動態生成 -->
+                <!-- 卡片解釋將由JavaScript動態生成 -->
             </div>
             
             <div class="text-center">

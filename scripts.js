@@ -1083,22 +1083,20 @@ document.addEventListener('DOMContentLoaded', function() {
             cardElement.className = 'tarot-card card-appear';
             cardElement.innerHTML = `
                 <div class="card-inner">
-                    <div class="card-front"></div>
+                    <div class="card-front" style="background-image: url('images/tarotcardback.png'); background-size: cover; background-position: center;"></div>
                     <div class="card-back">
                         <div class="card-image" style="background-image: url('${drawnCard.isReversed ? drawnCard.reversed_image : drawnCard.image}')"></div>
-                        <div class="card-title">${drawnCard.isReversed ? drawnCard.reversed_name : drawnCard.name}</div>
                     </div>
                 </div>
             `;
             
             cardContainer.appendChild(cardElement);
             
-            // 延遲翻轉卡片
+            // 移除卡片上升动画，直接添加翻转动画
             setTimeout(() => {
                 cardElement.classList.add('flipped');
-                
-                // 卡片翻轉的同時立即顯示解釋（移除原來的延遲）
-                // 顯示卡片含義
+            
+                // 卡片翻轉的同時立即顯示解釋
                 let meaningHTML = `
                     <h2>塔羅牌解讀</h2>
                     <div class="card-reading">
@@ -1116,7 +1114,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // 重新啟用按鈕
                 drawButton.disabled = false;
-            }, 500);
+            }, 500); // 使用与今日指引相同的延迟时间
         });
     }
     
@@ -1157,10 +1155,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 cardElement.className = 'tarot-card card-appear';
                 cardElement.innerHTML = `
                     <div class="card-inner">
-                        <div class="card-front"></div>
+                        <div class="card-front" style="background-image: url('images/tarotcardback.png'); background-size: cover; background-position: center;"></div>
                         <div class="card-back">
                             <div class="card-image" style="background-image: url('${card.isReversed ? card.reversed_image : card.image}')"></div>
-                            <div class="card-title">${card.isReversed ? card.reversed_name : card.name}</div>
                         </div>
                     </div>
                 `;
@@ -1168,11 +1165,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 cardWrapper.appendChild(cardElement);
                 cardContainer.appendChild(cardWrapper);
                 
-                // 依次延遲翻轉卡片
+                // 依次延遲翻轉卡片，移除上升动画
                 setTimeout(() => {
                     cardElement.classList.add('flipped');
                     
-                    // 最後一張卡片翻轉的同時立即顯示解釋（移除原來的延遲）
+                    // 最後一張卡片翻轉的同時立即顯示解釋
                     if (index === drawnCards.length - 1) {
                         let meaningHTML = '<h2>塔羅牌解讀</h2>';
                         
@@ -1201,11 +1198,266 @@ document.addEventListener('DOMContentLoaded', function() {
                         cardMeaning.classList.add('card-appear');
                         drawButton.disabled = false;
                     }
-                }, 500 + index * 300);
+                }, 500 + index * 300); // 保持卡片依次翻转的延迟
             });
         });
     }
     
+// ... existing code ...
+
+// 感应占卜页面 - 使用所有塔罗牌
+else if (currentPage === 'intuitive-reading.html') {
+    const shuffleButton = document.getElementById('shuffle-button');
+    const numberContainer = document.getElementById('number-container');
+    const cardContainer = document.querySelector('.card-container');
+    const cardMeaning = document.querySelector('.card-meaning');
+    
+    let shuffledCards = [];
+    let selectedNumbers = [];
+    const maxSelections = 3;
+    
+    shuffleButton.addEventListener('click', function() {
+        // 禁用按钮，防止重复点击
+        shuffleButton.disabled = true;
+        
+        // 清空之前的卡片和解释
+        cardContainer.innerHTML = '';
+        cardMeaning.style.display = 'none';
+        cardMeaning.innerHTML = '';
+        
+        // 清空之前的数字选择
+        numberContainer.innerHTML = '';
+        selectedNumbers = [];
+        
+        // 洗牌 - 创建包含所有78张塔罗牌的数组并随机排序
+        shuffledCards = [...tarotCards];
+        for (let i = shuffledCards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
+            
+            // 随机决定是否为逆位（50%的概率）
+            const isReversed = Math.random() < 0.5;
+            shuffledCards[i].isReversed = isReversed;
+            
+            // 如果是逆位，生成逆位图片路径
+            if (isReversed) {
+                const imagePath = shuffledCards[i].image;
+                const lastDotIndex = imagePath.lastIndexOf('.');
+                shuffledCards[i].reversed_image = imagePath.substring(0, lastDotIndex) + 'r' + imagePath.substring(lastDotIndex);
+            }
+        }
+        
+        // 创建78个数字按钮
+        for (let i = 1; i <= 78; i++) {
+            const numberButton = document.createElement('button');
+            numberButton.className = 'number-button';
+            numberButton.textContent = i;
+            numberButton.dataset.index = i - 1; // 存储对应的卡片索引
+            
+            numberButton.addEventListener('click', function() {
+                if (this.classList.contains('disabled')) return;
+                
+                // 如果已经选择了三个数字，则不允许再选择
+                if (selectedNumbers.length >= maxSelections && !this.classList.contains('selected')) return;
+                
+                // 切换选择状态
+                if (this.classList.contains('selected')) {
+                    // 取消选择
+                    this.classList.remove('selected');
+                    const index = selectedNumbers.indexOf(parseInt(this.dataset.index));
+                    if (index > -1) {
+                        selectedNumbers.splice(index, 1);
+                    }
+                } else {
+                    // 选择
+                    this.classList.add('selected');
+                    selectedNumbers.push(parseInt(this.dataset.index));
+                    
+                    // 如果已经选择了三个数字，显示卡片
+                    if (selectedNumbers.length === maxSelections) {
+                        // 禁用所有未选择的按钮
+                        document.querySelectorAll('.number-button:not(.selected)').forEach(btn => {
+                            btn.classList.add('disabled');
+                        });
+                        
+                        // 显示选中的卡片
+                        displaySelectedCards();
+                    }
+                }
+            });
+            
+            numberContainer.appendChild(numberButton);
+        }
+        
+        // 显示数字容器
+        numberContainer.style.display = 'flex';
+    });
+    
+    // 显示选中的卡片
+    function displaySelectedCards() {
+        // 清空卡片容器
+        cardContainer.innerHTML = '';
+        
+        // 为每个选中的数字创建卡片
+        selectedNumbers.forEach((cardIndex, index) => {
+            const card = shuffledCards[cardIndex];
+            
+            // 创建卡片包装器
+            const cardWrapper = document.createElement('div');
+            cardWrapper.className = 'intuitive-card-wrapper';
+            
+            // 添加数字标题
+            const numberTitle = document.createElement('div');
+            numberTitle.className = 'intuitive-card-number';
+            numberTitle.textContent = `選擇 ${cardIndex + 1}`;
+            cardWrapper.appendChild(numberTitle);
+            
+            // 创建卡片元素
+            const cardElement = document.createElement('div');
+            cardElement.className = 'tarot-card card-appear';
+            cardElement.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front" style="background-image: url('images/tarotcardback.png'); background-size: cover; background-position: center;"></div>
+                    <div class="card-back">
+                        <div class="card-image" style="background-image: url('${card.isReversed ? card.reversed_image : card.image}')"></div>
+                    </div>
+                </div>
+            `;
+            
+            cardWrapper.appendChild(cardElement);
+            cardContainer.appendChild(cardWrapper);
+            
+            // 依次延迟翻转卡片
+            setTimeout(() => {
+                cardElement.classList.add('flipped');
+                
+                // 最后一张卡片翻转的同时立即显示解释
+                if (index === selectedNumbers.length - 1) {
+                    let meaningHTML = '<h2>塔羅牌解讀</h2>';
+                    
+                    selectedNumbers.forEach((cardIdx, i) => {
+                        const selectedCard = shuffledCards[cardIdx];
+                        meaningHTML += `
+                            <div class="card-position">
+                                <h3>選擇 ${cardIdx + 1}</h3>
+                                <h2>${selectedCard.isReversed ? selectedCard.reversed_name : selectedCard.name} (${selectedCard.isReversed ? selectedCard.reversed_english_name : selectedCard.english_name})</h2>
+                                <p>${selectedCard.isReversed ? selectedCard.reversed_meaning : selectedCard.meaning}</p>
+                                <p class="english-meaning">${selectedCard.isReversed ? selectedCard.reversed_english_meaning : selectedCard.english_meaning}</p>
+                            </div>
+                        `;
+                    });
+                    
+                    // 生成并添加整合结语
+                    const conclusion = generateIntuitiveConclusion(selectedNumbers.map(idx => shuffledCards[idx]));
+                    meaningHTML += `
+                        <div class="card-conclusion">
+                            <h3>整體解讀</h3>
+                            <p>${conclusion}</p>
+                        </div>
+                    `;
+                    
+                    cardMeaning.innerHTML = meaningHTML;
+                    cardMeaning.style.display = 'block';
+                    cardMeaning.classList.add('card-appear');
+                    
+                    // 重新启用洗牌按钮
+                    shuffleButton.disabled = false;
+                }
+            }, 500 + index * 300);
+        });
+    }
+    
+    // 生成感应占卜的整合结语
+    function generateIntuitiveConclusion(cards) {
+    // 獲取卡片的基本信息
+    const cardNames = cards.map(card => card.isReversed ? card.reversed_name : card.name);
+    const cardMeanings = cards.map(card => card.isReversed ? card.reversed_meaning : card.meaning);
+    
+    // 開始整體解讀
+    let conclusion = '';
+    
+// 分析牌面組合的整體意義
+conclusion += `${cardNames[0]}代表了你當前的核心能量或問題的根源，`;
+conclusion += `與${cardNames[1]}所顯示的外部影響或挑戰相互作用，`;
+conclusion += `最終指向${cardNames[2]}所暗示的可能結果或解決方向。`;
+
+
+// 分析第二張牌與第一張牌的關係
+conclusion += `\n\n${cardNames[1]}的出現表明，`;
+if (cards[1].isReversed) {
+    conclusion += `你可能正在面對一些阻礙或內在衝突，這需要你調整策略或改變視角。`;
+} else {
+    conclusion += `有支持性的能量正在幫助你前進，把握這股力量可以幫助你克服困難。`;
+}
+
+// 分析第三張牌作為結果
+conclusion += `\n\n最終，${cardNames[2]}指引你走向一個方向：`;
+if (cards[2].isReversed) {
+    conclusion += `這可能需要你重新評估目標或期望，接受一個不同於預期的結果，但這同樣包含寶貴的學習。`;
+} else {
+    conclusion += `如果你能整合前兩張牌的能量和教訓，你很可能會達到一個令人滿意的結果或突破。`;
+}
+    
+    // 檢查是否有大阿爾卡納牌
+    const majorArcanaCards = cards.filter(card => card.id >= 0 && card.id <= 21);
+    if (majorArcanaCards.length > 0) {
+        conclusion += `\n\n值得注意的是，大阿爾卡納牌在你的選擇中佔據重要位置（${majorArcanaCards.length}張），這表明當前的情況與你的人生旅程和重要轉變密切相關。這些牌提醒你關注更大的生命主題和靈性成長。`;
+    }
+    
+    // 檢查是否有逆位牌
+    const reversedCards = cards.filter(card => card.isReversed);
+    if (reversedCards.length > 0) {
+        conclusion += `\n\n有${reversedCards.length}張逆位牌出現，提示你需要關注內在的阻礙或尚未解決的問題。這些逆位能量邀請你進行深入的自我反思，找出潛在的盲點或抵抗。`;
+    } else {
+        conclusion += `\n\n所有牌都是正位，這表明能量流動相對順暢，你可能正處於一個有利於前進的時期。`;
+    }
+    
+    // 根據牌的花色分析
+    const suits = cards.map(card => {
+        if (card.id >= 0 && card.id <= 21) return 'major';
+        if (card.id >= 22 && card.id <= 35) return 'wands';
+        if (card.id >= 36 && card.id <= 49) return 'cups';
+        if (card.id >= 50 && card.id <= 63) return 'swords';
+        if (card.id >= 64 && card.id <= 77) return 'pentacles';
+        return 'unknown';
+    });
+    
+    // 分析花色分布
+    const suitCounts = {
+        major: suits.filter(s => s === 'major').length,
+        wands: suits.filter(s => s === 'wands').length,
+        cups: suits.filter(s => s === 'cups').length,
+        swords: suits.filter(s => s === 'swords').length,
+        pentacles: suits.filter(s => s === 'pentacles').length
+    };
+    
+    // 根據主要花色提供額外洞見
+    let dominantSuit = Object.keys(suitCounts).reduce((a, b) => suitCounts[a] > suitCounts[b] ? a : b);
+    if (dominantSuit !== 'major' && suitCounts[dominantSuit] > 1) {
+        conclusion += `\n\n${suitCounts[dominantSuit]}張牌屬於`;
+        
+        if (dominantSuit === 'wands') {
+            conclusion += `權杖牌，這強調了創造力、熱情和行動的重要性。你的情況可能與職業抱負、創新項目或個人激情有關。建議你保持熱情並採取主動行動。`;
+        } else if (dominantSuit === 'cups') {
+            conclusion += `聖杯牌，這突顯了情感、關係和直覺的重要性。你的情況可能與人際關係、情感健康或創造表達有關。建議你傾聽內心的聲音，關注情感需求。`;
+        } else if (dominantSuit === 'swords') {
+            conclusion += `寶劍牌，這強調了思考、溝通和挑戰的重要性。你的情況可能與決策、衝突或思想清晰度有關。建議你保持理性分析，同時注意溝通方式。`;
+        } else if (dominantSuit === 'pentacles') {
+            conclusion += `錢幣牌，這突顯了物質世界、財務和實用性的重要性。你的情況可能與職業、財務或健康有關。建議你採取實際步驟，關注長期穩定性。`;
+        }
+    }
+    
+    // 提供整合性建議
+    conclusion += `\n\n綜合這三張牌的信息，對你的建議是：`;
+    conclusion += `\n1. 認識到${cardNames[0]}所代表的核心能量，接受它作為你當前旅程的起點。`;
+    conclusion += `\n2. 面對${cardNames[1]}所顯示的挑戰或機會，調整你的策略和視角。`;
+    conclusion += `\n3. 朝著${cardNames[2]}所指引的方向前進，保持開放和適應性。`;
+    conclusion += `\n\n記住，塔羅牌提供的是可能性和洞見，最終的選擇和行動仍在你手中。`;
+    
+    return conclusion;
+}
+}
+
     // 今日指引頁面 - 修改為使用所有塔羅牌
     else if (currentPage === 'daily-guidance.html') {
         const drawButton = document.getElementById('draw-button');
@@ -1234,10 +1486,9 @@ document.addEventListener('DOMContentLoaded', function() {
             cardElement.className = 'tarot-card card-appear';
             cardElement.innerHTML = `
                 <div class="card-inner">
-                    <div class="card-front"></div>
+                    <div class="card-front" style="background-image: url('images/tarotcardback.png'); background-size: cover; background-position: center;"></div>
                     <div class="card-back">
                         <div class="card-image" style="background-image: url('${dailyCard.isReversed ? dailyCard.reversed_image : dailyCard.image}')"></div>
-                        <div class="card-title">${dailyCard.isReversed ? dailyCard.reversed_name : dailyCard.name}</div>
                         <div class="card-position"></div>
                     </div>
                 </div>
@@ -1569,6 +1820,52 @@ function generateCombinationInsight(cards) {
     // 這部分可以根據需要擴展
     
     return insight;
+}
+
+// 訪問計數器功能
+document.addEventListener('DOMContentLoaded', function() {
+    // 檢查是否在主頁
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+        updateVisitorCount();
+    }
+});
+
+function updateVisitorCount() {
+    // 獲取訪問計數元素
+    const visitorCountElement = document.getElementById('visitor-count');
+    if (!visitorCountElement) return;
+    
+    // 從localStorage獲取當前計數
+    let count = localStorage.getItem('visitorCount');
+    
+    // 如果是首次訪問或計數不存在
+    if (!count) {
+        count = 1;
+    } else {
+        // 檢查上次訪問時間
+        const lastVisit = localStorage.getItem('lastVisit');
+        const now = new Date().getTime();
+        
+        // 如果是新的會話（超過30分鐘沒有訪問）或首次訪問，增加計數
+        if (!lastVisit || (now - lastVisit > 30 * 60 * 1000)) {
+            count = parseInt(count) + 1;
+        }
+    }
+    
+    // 更新localStorage
+    localStorage.setItem('visitorCount', count);
+    localStorage.setItem('lastVisit', new Date().getTime());
+    
+    // 更新顯示
+    visitorCountElement.textContent = count;
+    
+    // 每分鐘檢查一次更新（模擬實時更新）
+    setInterval(function() {
+        const currentCount = localStorage.getItem('visitorCount');
+        if (currentCount && currentCount !== visitorCountElement.textContent) {
+            visitorCountElement.textContent = currentCount;
+        }
+    }, 60000);
 }
 
 // 音樂播放控制 - 增強版解決頁面切換問題

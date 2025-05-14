@@ -13,6 +13,14 @@
     <div class="star-small"></div>
     <div class="star-medium"></div>
     <div class="star-large"></div>
+    
+    <!-- 添加右上角贊助按鈕 -->
+    <div class="coffee-button-container">
+        <a href="https://www.buymeacoffee.com/siu896" target="_blank" class="coffee-button">
+            <span class="coffee-icon">☕</span>
+            <span class="coffee-text">Buy Me a Coffee</span>
+        </a>
+    </div>
 
     <div class="container">
         <header>
@@ -21,25 +29,8 @@
         </header>
         
         <main class="main-menu">
-            <!-- 左側兩個菜單項 -->
-            <div class="menu-card left-item" id="menu-single">
-                <a href="single-card.html" class="menu-item">
-                    <div class="menu-icon">🔮</div>
-                    <h2>單牌占卜</h2>
-                    <p>心中默想問題，讓塔羅為你揭示答案</p>
-                </a>
-            </div>
-            
-            <div class="menu-card left-item" id="menu-three">
-                <a href="three-cards.html" class="menu-item">
-                    <div class="menu-icon">⏳</div>
-                    <h2>三牌占卜</h2>
-                    <p>探索你的過去、現在與未來</p>
-                </a>
-            </div>
-            
-            <!-- 中間較大的今日指引 -->
-            <div class="menu-card center-item" id="menu-daily">
+            <!-- 第一排：今日指引、單牌占卜、三牌占卜、感應占卜 -->
+            <div class="menu-card" id="menu-daily">
                 <a href="daily-guidance.html" class="menu-item">
                     <div class="menu-icon">🌟</div>
                     <h2>今日指引</h2>
@@ -47,8 +38,32 @@
                 </a>
             </div>
             
-            <!-- 右側兩個菜單項 -->
-            <div class="menu-card right-item" id="menu-consultation">
+            <div class="menu-card" id="menu-single">
+                <a href="single-card.html" class="menu-item">
+                    <div class="menu-icon">🔮</div>
+                    <h2>單牌占卜</h2>
+                    <p>心中默想問題，讓塔羅為你揭示答案</p>
+                </a>
+            </div>
+            
+            <div class="menu-card" id="menu-three">
+                <a href="three-cards.html" class="menu-item">
+                    <div class="menu-icon">⏳</div>
+                    <h2>三牌占卜</h2>
+                    <p>探索你的過去、現在與未來</p>
+                </a>
+            </div>
+            
+            <div class="menu-card" id="menu-intuitive">
+                <a href="intuitive-reading.html" class="menu-item">
+                    <div class="menu-icon">🌙</div>
+                    <h2>感應占卜</h2>
+                    <p>通過直覺選擇數字，揭示命運的奧秘</p>
+                </a>
+            </div>
+            
+            <!-- 第二排：真人線上占卜、淨化冥想 -->
+            <div class="menu-card" id="menu-consultation">
                 <a href="consultation.html" class="menu-item">
                     <div class="menu-icon">👤</div>
                     <h2>真人線上占卜</h2>
@@ -56,7 +71,7 @@
                 </a>
             </div>
             
-            <div class="menu-card right-item" id="menu-meditation">
+            <div class="menu-card" id="menu-meditation">
                 <a href="meditation.html" class="menu-item">
                     <div class="menu-icon">💎</div>
                     <h2>淨化冥想</h2>
@@ -67,6 +82,9 @@
         
         <footer>
             <p>© 2025神秘塔羅 - 探索你的命運</p>
+            <div class="visitor-counter">
+                <p> <span id="visitor-count">0</span></p>
+            </div>
         </footer>
     </div>
     

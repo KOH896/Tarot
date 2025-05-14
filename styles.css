@@ -146,14 +146,16 @@ h1 {
 /* 主菜單樣式 - 橫向排列 */
 .main-menu {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
     gap: 20px;
-    flex-grow: 1;
-    padding: 2rem 0;
-    position: relative;
-    height: 60vh;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+/* 添加這個新樣式，為第二排菜單項增加上邊距 */
+#menu-consultation, #menu-meditation {
+    margin-top: 40px; /* 增加第二排與第一排之間的間距 */
 }
 
 .menu-card {
@@ -179,42 +181,42 @@ h1 {
 
 /* 中間較大的今日指引 */
 .center-item {
-    width: 300px;
-    height: 350px;
-    z-index: 5;
-    background: rgba(60, 20, 100, 0.7);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    width: 220px;
+    height: 280px;
+    background: rgba(40, 10, 80, 0.7);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1;
 }
 
 .menu-card:hover {
-    transform: translateY(-10px) scale(1.1);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
-    width: 300px;
-    height: 350px;
-    background: rgba(60, 20, 100, 0.7);
-    z-index: 10;
+    transform: translateY(-15px);
+    background: rgba(60, 20, 100, 0.8);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    z-index: 5;
 }
 
 /* 修正：使用更精確的選擇器處理中間卡片在其他卡片懸停時的樣式 */
 #menu-single:hover ~ #menu-daily,
 #menu-three:hover ~ #menu-daily,
 #menu-consultation:hover ~ #menu-daily,
-#menu-meditation:hover ~ #menu-daily {
-    width: 220px ;
-    height: 280px ;
-    background: rgba(40, 10, 80, 0.6) ;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) ;
-    z-index: 1 ;
-    transform: translateY(0) scale(1) ;
+#menu-meditation:hover ~ #menu-daily,
+#menu-intuitive:hover ~ #menu-daily {
+    width: 220px;
+    height: 280px;
+    background: rgba(40, 10, 80, 0.7);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    transform: translateY(0) scale(1);
 }
 
 /* 確保中間卡片自己被懸停時保持大尺寸 */
 .center-item:hover {
-    width: 300px;
-    height: 350px;
-    background: rgba(60, 20, 100, 0.7);
+    width: 220px;
+    height: 280px;
+    transform: translateY(-15px);
+    background: rgba(60, 20, 100, 0.8);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
-    z-index: 10;
+    z-index: 5;
 }
 
 /* 固定所有字型大小 */
@@ -225,8 +227,8 @@ h1 {
 }
 
 .center-item .menu-icon {
-    font-size: 3.5rem ;
-    margin-bottom: 1.2rem ;
+    font-size: 2.5rem ;
+    margin-bottom: 1rem ;
 }
 
 .menu-card .menu-item h2 {
@@ -236,8 +238,8 @@ h1 {
 }
 
 .center-item .menu-item h2 {
-    font-size: 2rem ;
-    margin-bottom: 1rem ;
+    font-size: 1.5rem ;
+    margin-bottom: 0.8rem ;
 }
 
 .menu-card .menu-item p {
@@ -246,7 +248,7 @@ h1 {
 }
 
 .center-item .menu-item p {
-    font-size: 1.1rem ;
+    font-size: 0.9rem ;
 }
 
 /* 修改：懸停時放大字型大小 */
@@ -256,8 +258,8 @@ h1 {
 }
 
 .center-item:hover .menu-icon {
-    font-size: 4.2rem;
-    margin-bottom: 1.4rem;
+    font-size: 3.2rem;
+    margin-bottom: 1.2rem;
 }
 
 .menu-card:hover .menu-item h2 {
@@ -266,8 +268,8 @@ h1 {
 }
 
 .center-item:hover .menu-item h2 {
-    font-size: 2.4rem;
-    margin-bottom: 1.2rem;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
 }
 
 .menu-card:hover .menu-item p {
@@ -275,7 +277,7 @@ h1 {
 }
 
 .center-item:hover .menu-item p {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
 /* 移除中間卡片在其他卡片懸停時的字型大小變化 */ 
@@ -334,8 +336,8 @@ footer {
 }
 
 .tarot-card {
-    width: 220px; /* 恢复原始宽度 */
-    height: 400px; /* 恢复原始高度 */
+    width: 180px; /* 从220px缩小到180px */
+    height: 320px; /* 从400px缩小到320px */
     background: rgba(40, 10, 80, 0.7);
     border-radius: 10px;
     padding: 1rem;
@@ -347,17 +349,19 @@ footer {
 }
 
 .tarot-card:hover {
-    transform: translateY(-15px);
+    transform: translateY(-15px) rotate(2deg);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card-image {
-    width: 180px; /* 恢复原始宽度 */
-    height: 400px; /* 恢复原始高度 */
+    width: 150px; /* 从180px缩小到150px */
+    height: 280px; /* 从400px缩小到280px */
     background-color: #4a2b7a;
     border-radius: 5px;
     margin-bottom: 1rem;
-    background-size: cover;
+    background-size: contain; /* 修改为contain确保整张牌面可见 */
     background-position: center;
+    background-repeat: no-repeat; /* 防止图片重复 */
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -528,7 +532,7 @@ footer {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transition: transform 0.8s;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card-front, .card-back {
@@ -542,6 +546,10 @@ footer {
 
 .card-front {
     background-color: #4a2b7a;
+    background-image: url('images/tarotcardback.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 1;
 }
 
 .card-back {
@@ -553,6 +561,12 @@ footer {
 
 .flipped .card-inner {
     transform: rotateY(180deg);
+}
+
+/* 添加卡片光效 */
+.flipped .card-back {
+    box-shadow: 0 0 30px rgba(230, 194, 255, 0.8);
+    transition: box-shadow 0.5s ease 0.3s;
 }
 
 /* 卡片出现动画 */
@@ -569,6 +583,20 @@ footer {
 
 .card-appear {
     animation: cardAppear 0.8s ease forwards;
+}
+
+/* 卡片上升动画 */
+@keyframes cardRise {
+    0% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+.card-rise {
+    animation: cardRise 0.6s ease forwards;
 }
 
 /* 卡片发光效果 */
@@ -713,6 +741,66 @@ footer {
     50% { opacity: 0.7; transform: translate(-50%, -50%) scale(0.8); }
 }
 
+/* 感应占卜页面样式 */
+.number-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.number-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(60, 20, 100, 0.7);
+    border: 2px solid rgba(230, 194, 255, 0.5);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 10px rgba(230, 194, 255, 0.2);
+}
+
+.number-button:hover {
+    transform: translateY(-5px);
+    background: rgba(80, 30, 120, 0.8);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(230, 194, 255, 0.3);
+}
+
+.number-button.selected {
+    background: rgba(140, 80, 200, 0.9);
+    transform: scale(1.1);
+    border-color: rgba(255, 215, 255, 0.8);
+    box-shadow: 0 0 20px rgba(230, 194, 255, 0.6);
+}
+
+.number-button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.intuitive-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 15px;
+}
+
+.intuitive-card-number {
+    font-size: 1.5rem;
+    color: #e6c2ff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(230, 194, 255, 0.5);
+}
+
 /* 三牌占卜結語樣式 */
 .card-conclusion {
     margin-top: 2rem;
@@ -833,6 +921,34 @@ body {
         box-shadow: 0 0 0 0 rgba(230, 194, 255, 0);
     }
 }
+
+/* 访问计数器样式 */
+.visitor-counter {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #b68cff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.visitor-counter p {
+    display: flex;
+    align-items: center;
+}
+
+#visitor-count {
+    margin-left: 5px;
+    background: rgba(60, 20, 100, 0.7);
+    padding: 2px 8px;
+    border-radius: 10px;
+    color: #e6c2ff;
+    font-weight: bold;
+    display: inline-block;
+    min-width: 30px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(230, 194, 255, 0.3);
+}
 /* 为不同大小的星星创建不同的动画 */
 @keyframes twinkle-small {
     0%, 100% { opacity: 0.5; }
@@ -887,14 +1003,16 @@ h1 {
 /* 主菜單樣式 - 橫向排列 */
 .main-menu {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
     gap: 20px;
-    flex-grow: 1;
-    padding: 2rem 0;
-    position: relative;
-    height: 60vh;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+/* 添加這個新樣式，為第二排菜單項增加上邊距 */
+#menu-consultation, #menu-meditation {
+    margin-top: 40px; /* 增加第二排與第一排之間的間距 */
 }
 
 .menu-card {
@@ -920,42 +1038,42 @@ h1 {
 
 /* 中間較大的今日指引 */
 .center-item {
-    width: 300px;
-    height: 350px;
-    z-index: 5;
-    background: rgba(60, 20, 100, 0.7);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    width: 220px;
+    height: 280px;
+    background: rgba(40, 10, 80, 0.7);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1;
 }
 
 .menu-card:hover {
-    transform: translateY(-10px) scale(1.1);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
-    width: 300px;
-    height: 350px;
-    background: rgba(60, 20, 100, 0.7);
-    z-index: 10;
+    transform: translateY(-15px);
+    background: rgba(60, 20, 100, 0.8);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    z-index: 5;
 }
 
 /* 修正：使用更精確的選擇器處理中間卡片在其他卡片懸停時的樣式 */
 #menu-single:hover ~ #menu-daily,
 #menu-three:hover ~ #menu-daily,
 #menu-consultation:hover ~ #menu-daily,
-#menu-meditation:hover ~ #menu-daily {
-    width: 220px ;
-    height: 280px ;
-    background: rgba(40, 10, 80, 0.6) ;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) ;
-    z-index: 1 ;
-    transform: translateY(0) scale(1) ;
+#menu-meditation:hover ~ #menu-daily,
+#menu-intuitive:hover ~ #menu-daily {
+    width: 220px;
+    height: 280px;
+    background: rgba(40, 10, 80, 0.7);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    transform: translateY(0) scale(1);
 }
 
 /* 確保中間卡片自己被懸停時保持大尺寸 */
 .center-item:hover {
-    width: 300px;
-    height: 350px;
-    background: rgba(60, 20, 100, 0.7);
+    width: 220px;
+    height: 280px;
+    transform: translateY(-15px);
+    background: rgba(60, 20, 100, 0.8);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
-    z-index: 10;
+    z-index: 5;
 }
 
 /* 固定懸停時的圖標和文字大小 */
@@ -966,8 +1084,8 @@ h1 {
 }
 
 .center-item .menu-icon {
-    font-size: 3.5rem ;
-    margin-bottom: 1.2rem ;
+    font-size: 2.5rem ;
+    margin-bottom: 1rem ;
 }
 
 .menu-card .menu-item h2 {
@@ -977,8 +1095,8 @@ h1 {
 }
 
 .center-item .menu-item h2 {
-    font-size: 2rem ;
-    margin-bottom: 1rem ;
+    font-size: 1.5rem ;
+    margin-bottom: 0.8rem ;
 }
 
 .menu-card .menu-item p {
@@ -987,35 +1105,35 @@ h1 {
 }
 
 .center-item .menu-item p {
-    font-size: 1.1rem ;
+    font-size: 0.9rem ;
 }
-/* 修改：懸停時放大字型大小（放大一倍） */
+/* 修改：懸停時放大字型大小 */
 .menu-card:hover .menu-icon {
-    font-size: 12.5rem; /* 從2.5rem放大五倍 */
+    font-size: 3.2rem;
     margin-bottom: 1.2rem;
 }
 
 .center-item:hover .menu-icon {
-    font-size: 17.5rem; /* 從3.5rem放大五倍 */
-    margin-bottom: 1.4rem;
+    font-size: 3.2rem;
+    margin-bottom: 1.2rem;
 }
 
 .menu-card:hover .menu-item h2 {
-    font-size:  7.5rem; /* 從1.5rem放大五倍 */
+    font-size: 1.8rem;
     margin-bottom: 1rem;
 }
 
 .center-item:hover .menu-item h2 {
-    font-size: 10rem; /* 從2rem放大五倍 */
-    margin-bottom: 1.2rem;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
 }
 
 .menu-card:hover .menu-item p {
-    font-size: 4.5rem; /* 從0.9rem放大五倍 */
+    font-size: 1.1rem;
 }
 
 .center-item:hover .menu-item p {
-    font-size: 5.5rem; /* 從1.1rem放大五倍 */
+    font-size: 1.1rem;
 }
 /* 移除中間卡片在其他卡片懸停時的字型大小變化 */ 
 #menu-single:hover ~ #menu-daily .menu-icon,
@@ -1058,10 +1176,10 @@ h1 {
     margin-bottom: 1rem;
 }
 
-/* 中間項目的圖標更大 */
+/* 中間項目的圖標 */
 .center-item .menu-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1.2rem;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .menu-item h2 {
@@ -1070,10 +1188,10 @@ h1 {
     color: #e6c2ff;
 }
 
-/* 中間項目的標題更大 */
+/* 中間項目的標題 */
 .center-item .menu-item h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .menu-item p {
@@ -1081,9 +1199,9 @@ h1 {
     font-size: 0.9rem;
 }
 
-/* 中間項目的描述文字更大 */
+/* 中間項目的描述文字 */
 .center-item .menu-item p {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
 }
 
 footer {
@@ -1106,8 +1224,8 @@ footer {
 }
 
 .tarot-card {
-    width: 220px; /* 恢复原始宽度 */
-    height: 400px; /* 恢复原始高度 */
+    width: 180px; /* 从220px缩小到180px */
+    height: 320px; /* 从400px缩小到320px */
     background: rgba(40, 10, 80, 0.7);
     border-radius: 10px;
     padding: 1rem;
@@ -1119,17 +1237,19 @@ footer {
 }
 
 .tarot-card:hover {
-    transform: translateY(-15px);
+    transform: translateY(-15px) rotate(2deg);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card-image {
-    width: 180px; /* 恢复原始宽度 */
-    height: 400px; /* 恢复原始高度 */
+    width: 150px; /* 从180px缩小到150px */
+    height: 280px; /* 从400px缩小到280px */
     background-color: #4a2b7a;
     border-radius: 5px;
     margin-bottom: 1rem;
-    background-size: cover;
+    background-size: contain; /* 修改为contain确保整张牌面可见 */
     background-position: center;
+    background-repeat: no-repeat; /* 防止图片重复 */
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -1324,7 +1444,7 @@ footer {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transition: transform 0.8s;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card-front, .card-back {
@@ -1351,6 +1471,12 @@ footer {
     transform: rotateY(180deg);
 }
 
+/* 添加卡片光效 */
+.flipped .card-back {
+    box-shadow: 0 0 30px rgba(230, 194, 255, 0.8);
+    transition: box-shadow 0.5s ease 0.3s;
+}
+
 /* 卡片出现动画 */
 @keyframes cardAppear {
     0% {
@@ -1365,6 +1491,20 @@ footer {
 
 .card-appear {
     animation: cardAppear 0.8s ease forwards;
+}
+
+/* 卡片上升动画 */
+@keyframes cardRise {
+    0% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+.card-rise {
+    animation: cardRise 0.6s ease forwards;
 }
 
 /* 卡片发光效果 */
@@ -1558,14 +1698,16 @@ h1 {
 /* 主菜單樣式 - 橫向排列 */
 .main-menu {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
     gap: 20px;
-    flex-grow: 1;
-    padding: 2rem 0;
-    position: relative;
-    height: 60vh;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+/* 添加這個新樣式，為第二排菜單項增加上邊距 */
+#menu-consultation, #menu-meditation {
+    margin-top: 40px; /* 增加第二排與第一排之間的間距 */
 }
 
 .menu-card {
@@ -1591,42 +1733,42 @@ h1 {
 
 /* 中間較大的今日指引 */
 .center-item {
-    width: 300px;
-    height: 350px;
-    z-index: 5;
-    background: rgba(60, 20, 100, 0.7);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    width: 220px;
+    height: 280px;
+    background: rgba(40, 10, 80, 0.7);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1;
 }
 
 .menu-card:hover {
-    transform: translateY(-10px) scale(1.1);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
-    width: 300px;
-    height: 350px;
-    background: rgba(60, 20, 100, 0.7);
-    z-index: 10;
+    transform: translateY(-15px);
+    background: rgba(60, 20, 100, 0.8);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
+    z-index: 5;
 }
 
 /* 修正：使用更精確的選擇器處理中間卡片在其他卡片懸停時的樣式 */
 #menu-single:hover ~ #menu-daily,
 #menu-three:hover ~ #menu-daily,
 #menu-consultation:hover ~ #menu-daily,
-#menu-meditation:hover ~ #menu-daily {
-    width: 220px ;
-    height: 280px ;
-    background: rgba(40, 10, 80, 0.6) ;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) ;
-    z-index: 1 ;
-    transform: translateY(0) scale(1) ;
+#menu-meditation:hover ~ #menu-daily,
+#menu-intuitive:hover ~ #menu-daily {
+    width: 220px;
+    height: 280px;
+    background: rgba(40, 10, 80, 0.7);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    transform: translateY(0) scale(1);
 }
 
 /* 確保中間卡片自己被懸停時保持大尺寸 */
 .center-item:hover {
-    width: 300px;
-    height: 350px;
-    background: rgba(60, 20, 100, 0.7);
+    width: 220px;
+    height: 280px;
+    transform: translateY(-15px);
+    background: rgba(60, 20, 100, 0.8);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(230, 194, 255, 0.3);
-    z-index: 10;
+    z-index: 5;
 }
 
 /* 固定懸停時的圖標和文字大小 */
@@ -1637,8 +1779,8 @@ h1 {
 }
 
 .center-item .menu-icon {
-    font-size: 3.5rem ;
-    margin-bottom: 1.2rem ;
+    font-size: 2.5rem ;
+    margin-bottom: 1rem ;
 }
 
 .menu-card .menu-item h2 {
@@ -1648,8 +1790,8 @@ h1 {
 }
 
 .center-item .menu-item h2 {
-    font-size: 2rem ;
-    margin-bottom: 1rem ;
+    font-size: 1.5rem ;
+    margin-bottom: 0.8rem ;
 }
 
 .menu-card .menu-item p {
@@ -1658,7 +1800,7 @@ h1 {
 }
 
 .center-item .menu-item p {
-    font-size: 1.1rem ;
+    font-size: 0.9rem ;
 }
 
 
@@ -1680,10 +1822,10 @@ h1 {
     margin-bottom: 1rem;
 }
 
-/* 中間項目的圖標更大 */
+/* 中間項目的圖標 */
 .center-item .menu-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1.2rem;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .menu-item h2 {
@@ -1692,10 +1834,10 @@ h1 {
     color: #e6c2ff;
 }
 
-/* 中間項目的標題更大 */
+/* 中間項目的標題 */
 .center-item .menu-item h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .menu-item p {
@@ -1703,9 +1845,9 @@ h1 {
     font-size: 0.9rem;
 }
 
-/* 中間項目的描述文字更大 */
+/* 中間項目的描述文字 */
 .center-item .menu-item p {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
 }
 
 footer {
@@ -1728,8 +1870,8 @@ footer {
 }
 
 .tarot-card {
-    width: 220px; /* 恢复原始宽度 */
-    height: 400px; /* 恢复原始高度 */
+    width: 180px; /* 从220px缩小到180px */
+    height: 320px; /* 从400px缩小到320px */
     background: rgba(40, 10, 80, 0.7);
     border-radius: 10px;
     padding: 1rem;
@@ -1741,17 +1883,19 @@ footer {
 }
 
 .tarot-card:hover {
-    transform: translateY(-15px);
+    transform: translateY(-15px) rotate(2deg);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card-image {
-    width: 180px; /* 恢复原始宽度 */
-    height: 400px; /* 恢复原始高度 */
+    width: 150px; /* 从180px缩小到150px */
+    height: 280px; /* 从400px缩小到280px */
     background-color: #4a2b7a;
     border-radius: 5px;
     margin-bottom: 1rem;
-    background-size: cover;
+    background-size: contain; /* 修改为contain确保整张牌面可见 */
     background-position: center;
+    background-repeat: no-repeat; /* 防止图片重复 */
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -1946,7 +2090,7 @@ footer {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transition: transform 0.8s;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card-front, .card-back {
@@ -1973,6 +2117,12 @@ footer {
     transform: rotateY(180deg);
 }
 
+/* 添加卡片光效 */
+.flipped .card-back {
+    box-shadow: 0 0 30px rgba(230, 194, 255, 0.8);
+    transition: box-shadow 0.5s ease 0.3s;
+}
+
 /* 卡片出现动画 */
 @keyframes cardAppear {
     0% {
@@ -1987,6 +2137,20 @@ footer {
 
 .card-appear {
     animation: cardAppear 0.8s ease forwards;
+}
+
+/* 卡片上升动画 */
+@keyframes cardRise {
+    0% {
+        transform: translateY(10px);
+    }
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+.card-rise {
+    animation: cardRise 0.6s ease forwards;
 }
 
 /* 卡片发光效果 */
@@ -2059,6 +2223,64 @@ footer {
 .btn-return:before {
     content: '←';
     margin-right: 8px;
+}
+
+/* Buy Me a Coffee 按鈕樣式 */
+.support-container {
+    text-align: center;
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.coffee-button-container {
+    position: fixed;
+    top: 20px;
+    left: 10px; /* 位於月亮圖標左側 */
+    z-index: 100;
+}
+
+.coffee-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, #6b3e9e, #4a2882);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(107, 62, 158, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.coffee-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(107, 62, 158, 0.7);
+    background: linear-gradient(135deg, #7d4eb8, #5a32a0);
+}
+
+
+.coffee-icon {
+    font-size: 1.2rem;
+    margin-right: 0.6rem;
+}
+
+.coffee-text {
+    letter-spacing: 0.5px;
+}
+
+.support-text {
+    color: #d9c5ff;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    font-style: italic;
 }
 
 /* 英文解释样式 */
